@@ -1,10 +1,10 @@
-const Guest = require('../models/Guest');
+const Guest = require("../models/Guest");
 
 exports.getAllGuests = async (req, res) => {
   const guests = await Guest.find();
   res.json(guests);
 };
-  
+
 exports.createGuest = async (req, res) => {
   const guest = new Guest(req.body);
   await guest.save();
@@ -12,13 +12,22 @@ exports.createGuest = async (req, res) => {
 };
 
 exports.getGuestById = async (req, res) => {
-    const { id } = req.params;
-    const guest = await Guest.findById(id);
-    if (!guest) {
-      return res.status(404).json({ message: 'Guest not found' });
-    }
-    res.status(200).json(guest);
-  };
+  const { id } = req.params;
+  const guest = await Guest.findById(id);
+  if (!guest) {
+    return res.status(404).json({ message: "Guest not found" });
+  }
+  res.status(200).json(guest);
+};
+
+exports.getGuestByPhoneNumber = async (req, res) => {
+  const { phoneNumber } = req.params;
+  const guest = await Guest.findOne({ phoneNumber: phoneNumber });
+  if (!guest) {
+    return res.status(404).json({ message: "Guest not found" });
+  }
+  res.status(200).json(guest);
+};
 
 exports.updateGuest = async (req, res) => {
   const { id } = req.params;
@@ -27,7 +36,7 @@ exports.updateGuest = async (req, res) => {
     runValidators: true,
   });
   if (!guest) {
-    return res.status(404).json({ message: 'Guest not found' });
+    return res.status(404).json({ message: "Guest not found" });
   }
   res.status(200).json(guest);
 };
@@ -36,7 +45,7 @@ exports.deleteGuest = async (req, res) => {
   const { id } = req.params;
   const guest = await Guest.findByIdAndDelete(id);
   if (!guest) {
-    return res.status(404).json({ message: 'Guest not found' });
+    return res.status(404).json({ message: "Guest not found" });
   }
-  res.status(200).json({ message: 'Guest deleted' });
+  res.status(200).json({ message: "Guest deleted" });
 };

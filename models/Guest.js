@@ -14,7 +14,11 @@ const GuestSchema = new mongoose.Schema({
     type: String,
     required: true,
     unique: true
-  }
+  },
+  dob: {
+    type: Date,
+    required: true
+  },
 });
 
 module.exports = mongoose.model('Guest', GuestSchema);

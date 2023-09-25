@@ -6,6 +6,7 @@ const router = express.Router();
 router.get('/', guestController.getAllGuests);
 router.post('/', guestController.createGuest);
 router.get('/:id', guestController.getGuestById);
+router.get('/find/:phoneNumber', guestController.getGuestByPhoneNumber);
 router.put('/:id', guestController.updateGuest);
 router.delete('/:id', guestController.deleteGuest);
 
