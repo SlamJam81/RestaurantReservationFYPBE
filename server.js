@@ -1,5 +1,6 @@
 const express = require('express');
 const connectDB = require('./config/database');
+const morgan = require('morgan');
 
 // Routes
 const restaurantRoutes = require('./routes/restaurantRoutes');
@@ -15,6 +16,8 @@ const app = express();
 connectDB();
 
 app.use(express.json());
+
+app.use(morgan('combined'));
 
 // Routes middleware
 app.use('/restaurants', restaurantRoutes);
